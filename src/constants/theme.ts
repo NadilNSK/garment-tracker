@@ -61,6 +61,10 @@ export const Palette = {
   borderStrong: '#101317',
   textPrimary: '#101317',
   textMuted: '#6b7280',
+  textSecondary: '#2b3038',
+  borderSubtle: '#e2ded4',
+  textOnInverse: '#ffffff',
+  textInverseMuted: '#b8bcc4',
   textAccent: '#ffc629',
   textOnAccentMuted: '#3a2e00',
   status: {
@@ -68,6 +72,7 @@ export const Palette = {
     success: { bg: '#ddf3e6', fg: '#14864a' },
     neutral: { bg: '#eceae3', fg: '#2b3038' },
     danger: { bg: '#fde4e1', fg: '#d2281e' },
+    warning: { bg: '#fdefd9', fg: '#b45f06' },
   },
 } as const;
 

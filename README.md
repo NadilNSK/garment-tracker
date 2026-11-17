@@ -1,4 +1,30 @@
-# Welcome to your Expo app 👋
+# TrendyPass Gate Officer
+
+The Gate Officer flow uses the existing Expo SDK 58 / React Native stack, Expo Router,
+TrendyPass tokens, and bundled Barlow / JetBrains Mono fonts. The original Dispatch
+Home at `/` is preserved. Start the officer flow at `/gate`.
+
+```bash
+npm install
+npx expo start --web --port 8082
+```
+
+Use a supported Node version (Node 24 LTS is recommended). The API uses Node's built-in
+SQLite module. See [Gate Officer setup, previews, backend, and verification](docs/gate-officer.md).
+
+| Assigned screen | Preview path |
+| --- | --- |
+| Vehicle Released | `/vehicle-released?preview=design` |
+| Pass Rejected | `/pass-rejected?preview=design` |
+| Offline Sync Queue | `/sync-queue?preview=offline` |
+| All Scans Synced | `/sync-queue?preview=synced` |
+| Shipments | `/shipments?preview=design` |
+
+Live screens use `/gate`, `/scan`, `/shipments`, and `/sync-queue`. Scan outcomes open
+`/vehicle-released?scanId=…` or `/pass-rejected?scanId=…`. For an end-to-end local demo,
+open `/scan?demo=1`, load an unused sample pass, and press **Verify & release**.
+
+## Original Expo setup
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 

@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,8 +13,7 @@ const TABS = [
   { label: 'Profile', icon: require('@/assets/images/dispatch/tab-profile.svg') },
 ];
 
-// shortcut: only Home is a real route; other tabs and Scan are inert until those screens exist.
-export function TabBar({ active = 'Home' }: { active?: string }) {
+export function TabBar({ active = 'Home', officer = false }: { active?: string; officer?: boolean }) {
   const { bottom } = useSafeAreaInsets();
   return (
     <View style={[styles.bar, { paddingBottom: Math.max(bottom, 22) }]}>
@@ -23,14 +23,18 @@ export function TabBar({ active = 'Home' }: { active?: string }) {
             key={tab.label}
             style={styles.item}
             accessibilityRole="tab"
-            accessibilityState={{ selected: tab.label === active }}>
+            aria-selected={tab.label === active}
+            aria-disabled={tab.label === 'Alerts' || tab.label === 'Profile'}
+            onPress={tab.label === 'Home' ? () => router.navigate(officer ? '/gate' : '/') : tab.label === 'Shipments' ? () => router.navigate('/shipments') : undefined}
+            disabled={tab.label === 'Alerts' || tab.label === 'Profile'}
+            accessibilityState={{ selected: tab.label === active, disabled: tab.label === 'Alerts' || tab.label === 'Profile' }}>
             {tab.label === active && <View style={styles.indicator} />}
-            <Image source={tab.icon} style={styles.icon} />
+            <Image source={officer && tab.label === 'Home' && active !== 'Home' ? require('@/assets/images/gate/tab-home.svg') : officer && tab.label === 'Shipments' && active === 'Shipments' ? require('@/assets/images/gate/tab-shipments.svg') : tab.icon} style={styles.icon} />
             <Text style={[styles.label, tab.label === active && styles.labelActive]}>{tab.label}</Text>
           </Pressable>
         ) : (
           <View key="scan" style={styles.item}>
-            <Pressable style={styles.scan} accessibilityRole="button" accessibilityLabel="Scan">
+            <Pressable onPress={() => router.navigate('/scan')} style={[styles.scan, officer && { top: -20 }]} accessibilityRole="button" accessibilityLabel="Scan">
               <Image source={require('@/assets/images/dispatch/tab-scan.svg')} style={styles.scanIcon} />
             </Pressable>
           </View>

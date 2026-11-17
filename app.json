@@ -20,11 +20,12 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "output": "server",
+      "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
+      ["expo-router", { "asyncRoutes": { "web": false }, "apiRoutes": true }],
+      ["expo-camera", { "cameraPermission": "Allow TrendyPass to scan vehicle gate passes.", "recordAudioAndroid": false, "barcodeScannerEnabled": true }],
       [
         "expo-splash-screen",
         {
